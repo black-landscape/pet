@@ -11,6 +11,7 @@
 
 		<script type="text/javascript" src="js/jquery1.42.min.js"></script>
 		<script type="text/javascript" src="js/jquery.SuperSlide.2.1.1.js"></script>
+		<script type="text/javascript" src="js/custom.js"></script>
 	</head>
 
 	<body>
@@ -39,136 +40,81 @@
 		<div class="clearfix"></div>
 		<dl class="box_pro_nav">
 			<dt>
-				<a href="" tppabs="" class="">Dog Leash</a>
-       			<a href="" tppabs="" class="">Dog Collar</a>
-       			<a href="" tppabs="" class="">Dog Harness</a>
+				<a href="javascript:initTable(1)" tppabs="" class="">Pet Bed</a>
+       			<a href="javascript:initTable(2)" tppabs="" class="">Pet Clothes</a>
+       			<a href="javascript:initTable(3)" tppabs="" class="">Pet Leash&Harness</a>
+       			<a href="javascript:initTable(4)" tppabs="" class="">Pet toy</a>
       		</dt>
-      		<dd><img src="images/bg_03.jpg" tppabs="" width="1050" height="300"/></dd>
+			<dd><img src="images/bg_03.jpg" tppabs="" width="1050" height="300" /></dd>
 
-      	</dl>
-			<div class="nav_bg"></div>
-			<div class="clearfix"></div>
-			
-			<div class="container">
-				<ul class="box_pro" id="pet_list">
-			</div>
+		</dl>
+		<div class="nav_bg"></div>
+		<div class="clearfix"></div>
 
-			<div class="clearfix"></div>
-			<div class="box_foot">
-				<div class="box_copy">
-					Copyright &copy; Dongguan Xiaoxiong E-Commerce Co., ltd
-				</div>
+		<div class="container">
+			<ul class="box_pro" id="pet_list">
+		</div>
+
+		<div class="clearfix"></div>
+		<div class="box_foot">
+			<div class="box_copy">
+				Copyright &copy; Dongguan Xiaoxiong E-Commerce Co., ltd
 			</div>
+		</div>
 	</body>
 
 	<script>
-		var jsonData = [{
-				"itemNo": "KWDB071",
-				"name": "DOG BED",
-				"size": "SMALL/45X30X12CM,MEDIUM/55X40X15CM,LARGE/65X50X17CM",
-				"oem": "AVAILABLE"
-			},
-			{
-				"itemNo": "KWDB072",
-				"name": "DOG BED",
-				"size": "80CMX65CMX10CM",
-				"oem": "AVAILABLE"
-			},
-			{
-				"itemNo": "KWDB073",
-				"name": "DOG BED",
-				"size": "65X50X17CM",
-				"oem": "AVAILABLE"
-			},
-			{
-				"itemNo": "KWDB074",
-				"name": "DOG BED",
-				"size": "SMALL/45X30X12CM,MEDIUM/55X40X15CM,LARGE/65X50X17CM",
-				"oem": "AVAILABLE"
-			},
-			{
-				"itemNo": "KWDB075",
-				"name": "DOG BED",
-				"size": "SMALL/45X30X12CM,MEDIUM/55X40X15CM,LARGE/65X50X17CM",
-				"oem": "AVAILABLE"
-			},
-			{
-				"itemNo": "KWDB076",
-				"name": "DOG BED",
-				"size": "SMALL/45X30X12CM,MEDIUM/55X40X15CM,LARGE/65X50X17CM",
-				"oem": "AVAILABLE"
-			},
-			{
-				"itemNo": "KWDB077",
-				"name": "DOG BED",
-				"size": "SMALL/45X30X12CM,MEDIUM/55X40X15CM,LARGE/65X50X17CM",
-				"oem": "AVAILABLE"
-			},
-			{
-				"itemNo": "KWDB078",
-				"name": "DOG BED",
-				"size": "55X40X22CM",
-				"oem": "AVAILABLE"
-			},
-			{
-				"itemNo": "KWDB079",
-				"name": "SQUARE DOG BED",
-				"size": "XS: 44X44X17,M: 52X52X17CML: 60X60X17CM",
-				"oem": "AVAILABLE"
-			},
-			{
-				"itemNo": "KWDB080",
-				"name": "DOG BED",
-				"size": "50X47CM",
-				"oem": "AVAILABLE"
-			},
-			{
-				"itemNo": "KWDB081",
-				"name": "PET BED FOR SMALL ANIMALS",
-				"size": "55CMX45CM",
-				"oem": "AVAILABLE"
-			},
-			{
-				"itemNo": "KWDB082",
-				"name": "PET BED FOR SMALL ANIMALS",
-				"size": "50X47CM",
-				"oem": "AVAILABLE"
-			},
-			{
-				"itemNo": "KWDB083",
-				"name": "Cat Bed",
-				"size": "44X43CM",
-				"oem": "AVAILABLE"
-			},
-			{
-				"itemNo": "KWDB084",
-				"name": "Cat Bed",
-				"size": "40CM",
-				"oem": "AVAILABLE"
-			},
-			{
-				"itemNo": "KWDB085",
-				"name": "Cat Bed",
-				"size": "40CMX35CM",
-				"oem": "AVAILABLE"
-			},
-		]
+		var sid = parseInt(getQueryString("sid"));
+		if(sid) {
+			initTable(sid);
+		} else {
+			initTable(1);
+		}
 
-		initTable();
+		function initTable(sid) {
+			$('#pet_list').empty();
+			var jsonData = pet_bed_json;
+			switch(sid) {
+				case 1:
+					jsonData = pet_bed_json;
+					foldname = "pet_bed";
+					break;
+				case 2:
+					jsonData = dog_clothing_json;
+					foldname = "pet_clothes";
+					break;
+				case 3:
+					jsonData = dog_collar_leash;
+					foldname = "pet_leash_harness";
+					break;
+				case 4:
+					jsonData = pet_toys;
+					foldname = "pet_toy";
+					break;
+			}
 
-		function initTable() {
 			var html = '<table border=1>';
 			for(var j in jsonData) {
 				var obj = jsonData[j];
 				html += '<li>'
-				html += '<a href="" tppabs="" target="_blank" title="' + obj.name + '">'
-				html += '<img src="uploadfile/pet_bed/' + obj.itemNo + '.jpg" tppabs="uploadfile/pet_bed/' + obj.itemNo + '.jpg" width="220" height="220" alt=' + obj.name + '></>';
+				html += '<a href="proview.html?sid=' + sid + '&itemNo=' + obj.itemNo + '&name=' + obj.name + '&oem=' + obj.oem + '" title="' + obj.name + '">'
+				html += '<img src="uploadfile/' + foldname + '/' + obj.itemNo + '.jpg" tppabs="uploadfile/' + foldname + '/' + obj.itemNo + '.jpg" width="220" height="220" alt=' + obj.name + '></>';
 				html += '<span>' + obj.name + '</span>';
 				html += '</li>'
 			}
 			html += '</table>';
 
 			$('#pet_list').append(html);
+		}
+
+		function getQueryString(name) {
+			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+			var r = window.location.search.substr(1).match(reg);
+			if(r != null) {
+				return unescape(r[2]);
+			} else {
+				return null;
+			}
 		}
 	</script>
 

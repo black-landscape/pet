@@ -40,20 +40,9 @@
 		<div class="clearfix"></div>
 
 		<div class="container" style="width:1088px;">
-			<div class="right_column"><span class="sub_nav"><a href="index.asp.htm" tppabs="">Home</a> &gt; <a href="products.asp.htm" tppabs="">Products</a> &gt; <a href="products.asp-sid=3.htm" tppabs="">Dog Collar</a></span></div>
-			<div class="content" style=" padding-top:30px;">
-				<div class="pic-l">
-					<div id="wrap" class="wrap">
-						<ul>
-							<li><img src="uploadfile/pet_bed/KWDB071.jpg" tppabs="uploadfile/pet_bed/KWDB071.jpg"> </li>
-						</ul>
-					</div>
-					<div class=jqzoom id=spec-n1><img src="uploadfile/pet_bed/KWDB071.jpg" tppabs="" width="420" height="420" /></div>
-				</div>
-				<dl class="pro_right"><dt>Plastic buckle dog collar</dt>
-					<dd>Dog Collar Specifications<br>Material:Nylon, Polyester,PU leather, PVC leather<br>Color: by your pantone number or our available color choices<br>Size:<br>Small - 23cm - 30cm / width 1.5cm<br>Medium - 30cm - 43cm / 2cm<br>Large - 43cm - 58cm / 2.5cm<br>XL - 58cm - 75cm / 3.5cm<br>Buckle: plastic buckle or metal buckle<br><br>Welcome OEM & ODM orders!</dd>
-				</dl>
-				<div class="pro_main"></div>
+			<div class="right_column"><span class="sub_nav"><a href="index.html" tppabs="">Home</a> &gt; <a href="javascript:returnProducts()" tppabs="">Products</a> &gt; <a id="sidName" href="javascript:returnProducts()" tppabs=""></a></span></div>
+			<div id="product_info" class="content" style=" padding-top:30px;">
+
 			</div>
 		</div>
 
@@ -64,5 +53,80 @@
 			</div>
 		</div>
 	</body>
+	<script>
+		init();
+
+		function init() {
+			$('#product_info').empty();
+			var sidName = "";
+			var sid = parseInt(getQueryString("sid"));
+			var name = getQueryString('name');
+			var size = getQueryString('name');
+			var oem = getQueryString('name');
+
+			switch(sid) {
+				case 1:
+					foldname = "pet_bed";
+					sidName = "Pet Bed";
+					break;
+				case 2:
+					foldname = "pet_clothes";
+					sidName = "Pet Clothes";
+					break;
+				case 3:
+					foldname = "pet_leash_harness";
+					sidName = "Pet Leash&Harness";
+					break;
+				case 4:
+					foldname = "pet_toy";
+					sidName = "Pet Toy";
+					break;
+			}
+
+			$('#sidName').html(sidName);
+
+			var imgPath = '"uploadfile/' + foldname + '/' + getQueryString('itemNo') + '.jpg"';
+			var html = "<div class='pic-l'>";
+			html += "<div id='wrap' class='wrap'>";
+			html += "<ul>";
+			html += "<li>";
+			html += '<img src="uploadfile/' + foldname + '/' + getQueryString('itemNo') + '.jpg"></>';
+			html += "</li>";
+			html += "</ui>";
+			html += "</div>";
+
+			html += '<div class=jqzoom id=spec-n1><img src=' + imgPath + ' jqimg=' + imgPath + ' width="420" height="420" alt=""/></div>'
+
+			html += "</div>";
+
+			html += "<div>";
+			html += '<dl class="pro_right"><dt>' + name + '</dt>';
+			html += '<dd>';
+			if(size) {
+				html += 'size:' + size + '<br>';
+			}
+			if(oem) {
+				html += 'oem:' + oem + '<br>';
+			}
+			html += '</dd>';
+			html += '</dl>';
+			html += '<div class="pro_main"></div>';
+			$('#product_info').append(html);
+		}
+
+		function returnProducts() {
+			window.location.href = "products.html?sid=" + getQueryString("sid");
+		}
+
+		function getQueryString(name) {
+			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+			var r = window.location.search.substr(1).match(reg);
+			if(r != null) {
+				return unescape(r[2]);
+			} else {
+				return null;
+			}
+		}
+	</script>
 
 </html>

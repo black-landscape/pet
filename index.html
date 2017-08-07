@@ -10,6 +10,7 @@
 		<link href="css/style.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript" src="js/jquery1.42.min.js"></script>
 		<script type="text/javascript" src="js/jquery.SuperSlide.2.1.1.js"></script>
+		<script type="text/javascript" src="js/custom.js"></script>
 	</head>
 
 	<body>
@@ -82,86 +83,7 @@
 						<li>Pet toy</li>
 					</ul>
 				</div>
-				<div class="bd">
-					<ul>
-						<li>
-							<a href="proview.asp?id=124" target="_blank" title="Nylon dog leash"><img src="uploadfile/product_small/201608201119413848.jpg" width="220" height="220" /><span>Nylon dog leash</span></a>
-						</li>
-						<li>
-							<a href="proview.asp?id=123" target="_blank" title="Ribbon on nylon webbing dog leash"><img src="uploadfile/product_small/201608201118534531.jpg" width="220" height="220" /><span>Ribbon on nylon webbing dog leash</span></a>
-						</li>
-						<li>
-							<a href="proview.asp?id=122" target="_blank" title="Hands free dog leash"><img src="uploadfile/product_small/201608181652151954.jpg" width="220" height="220" /><span>Hands free dog leash</span></a>
-						</li>
-						<li>
-							<a href="proview.asp?id=121" target="_blank" title="Hands free dog leash"><img src="uploadfile/product_small/201608181649215915.jpg" width="220" height="220" /><span>Hands free dog leash</span></a>
-						</li>
-						<a href="products.asp?sid=2" class="more">View more >></a>
-					</ul>
-
-					<ul>
-
-						<li>
-							<a href="proview.asp?id=11" target="_blank" title="Nylon webbing dog collar purple"><img src="uploadfile/product_small/201608011725102258.jpg" width="220" height="220" /><span>Nylon webbing dog collar purple</span></a>
-						</li>
-
-						<li>
-							<a href="proview.asp?id=18" target="_blank" title="Soft touch mesh padded dog collar"><img src="uploadfile/product_small/201608011730047083.jpg" width="220" height="220" /><span>Soft touch mesh padded dog collar</span></a>
-						</li>
-
-						<li>
-							<a href="proview.asp?id=22" target="_blank" title="PVC/PU leather dog collar"><img src="uploadfile/product_small/201608171039158976.jpg" width="220" height="220" /><span>PVC/PU leather dog collar</span></a>
-						</li>
-
-						<li>
-							<a href="proview.asp?id=8" target="_blank" title="Soft touch neoprene padded dog collar"><img src="uploadfile/product_small/201608011722074318.jpg" width="220" height="220" /><span>Soft touch neoprene padded dog collar</span></a>
-						</li>
-
-						<a href="products.asp?sid=3" class="more">View more >></a>
-					</ul>
-
-					<ul>
-
-						<li>
-							<a href="proview.asp?id=120" target="_blank" title=" Denim Dog Harness and Leash"><img src="uploadfile/product_small/201608161033547970.jpg" width="220" height="220" /><span> Denim Dog Harness and Leash</span></a>
-						</li>
-
-						<li>
-							<a href="proview.asp?id=119" target="_blank" title="Dog leash and harness"><img src="uploadfile/product_small/201608161031416219.jpg" width="220" height="220" /><span>Dog leash and harness</span></a>
-						</li>
-
-						<li>
-							<a href="proview.asp?id=118" target="_blank" title="Soft mesh harness"><img src="uploadfile/product_small/201608161030325231.jpg" width="220" height="220" /><span>Soft mesh harness</span></a>
-						</li>
-
-						<li>
-							<a href="proview.asp?id=117" target="_blank" title="No choke dog harness"><img src="uploadfile/product_small/201608161029287534.jpg" width="220" height="220" /><span>No choke dog harness</span></a>
-						</li>
-
-						<a href="products.asp?sid=1" class="more">View more >></a>
-					</ul>
-					
-					<ul>
-
-						<li>
-							<a href="proview.asp?id=120" target="_blank" title=" Denim Dog Harness and Leash"><img src="uploadfile/product_small/201608161033547970.jpg" width="220" height="220" /><span> Denim Dog Harness and Leash</span></a>
-						</li>
-
-						<li>
-							<a href="proview.asp?id=119" target="_blank" title="Dog leash and harness"><img src="uploadfile/product_small/201608161031416219.jpg" width="220" height="220" /><span>Dog leash and harness</span></a>
-						</li>
-
-						<li>
-							<a href="proview.asp?id=118" target="_blank" title="Soft mesh harness"><img src="uploadfile/product_small/201608161030325231.jpg" width="220" height="220" /><span>Soft mesh harness</span></a>
-						</li>
-
-						<li>
-							<a href="proview.asp?id=117" target="_blank" title="No choke dog harness"><img src="uploadfile/product_small/201608161029287534.jpg" width="220" height="220" /><span>No choke dog harness</span></a>
-						</li>
-
-						<a href="products.asp?sid=1" class="more">View more >></a>
-					</ul>
-
+				<div class="bd" id="pet_list">
 				</div>
 			</div>
 			<script type="text/javascript">
@@ -176,5 +98,50 @@
 			</div>
 		</div>
 	</body>
+
+	<script>
+		this.initTable(1);
+
+		function initTable(sid) {
+			$('#pet_list').empty();
+			$('#pet_list').append(createUl(sid));
+		}
+
+		function createUl(sid) {
+			var jsonData = pet_bed_json;
+			switch(sid) {
+				case 1:
+					jsonData = pet_bed_json;
+					foldname = "pet_bed";
+					break;
+				case 2:
+					jsonData = dog_clothing_json;
+					foldname = "pet_clothes";
+					break;
+				case 3:
+					jsonData = dog_collar_leash;
+					foldname = "pet_leash_harness";
+					break;
+				case 4:
+					jsonData = pet_toys;
+					foldname = "pet_toy";
+					break;
+			}
+			html = '<ul>';
+			for(var i = 0; i < 4; i++) {
+				var obj = jsonData[i];
+				html += '<li>'
+				html += '<a href="proview.html?sid=' + sid + '&itemNo=' + obj.itemNo + '&name=' + obj.name + '&oem=' + obj.oem + '" title="' + obj.name + '">'
+				html += '<img src="uploadfile/' + foldname + '/' + obj.itemNo + '.jpg" tppabs="uploadfile/' + foldname + '/' + obj.itemNo + '.jpg" width="220" height="220" alt=' + obj.name + '></>';
+				html += '<span>' + obj.name + '</span>';
+				html += '</li>'
+			}
+			html += '<a href="products.html?sid=' + sid + '" class = "more" > View more >> </a>'
+
+			//									<a href="products.asp?sid=3" class="more">View more >></a>
+			html += '</ul>';
+			return html;
+		}
+	</script>
 
 </html>
